@@ -1,2 +1,2 @@
 # zmodule2
-a drupal module for zoroastrian community
+a drupal 7 module for zoroastrian community
