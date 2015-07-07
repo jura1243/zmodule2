@@ -1,0 +1,10 @@
+name = Zoroastrian Module 2
+description = A zoroastrian fitchs like current date, update dates, time to pray.
+core = 7.x
+
+configure = admin/config/content/zmodule2
+
+;files[] = zmodule2.module
+;files[] = zmodule2date.inc
+
+datestamp="1395079444"

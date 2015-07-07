@@ -1,0 +1,105 @@
+<?php
+/**
+ * Implements hook_block_info().
+ */
+function zmodule2_block_info() {
+  $blocks['zmodule2date'] = array(
+    // The name that will appear in the block list.
+    'info' => t('Zoroastrian module current date'),
+    // Default setting.
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  $blocks['zmodule2pray'] = array(
+    // The name that will appear in the block list.
+    'info' => t('Zoroastrian module pray time'),
+    // Default setting.
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  return $blocks;
+}
+/**
+ * Implements hook_block_view().
+ */
+function zmodule2_block_view($delta = '') {
+  switch ($delta) {
+    case 'zmodule2date':
+      $block['subject'] = t('Zoroastrian module current date');
+      if (user_access('access content')) {
+        // Use our custom function to retrieve data.
+        $block['content'] = t('No posts available.');  
+      }
+      return $block;
+    break;
+    case 'zmodule2pray':
+      $block['subject'] = t('Zoroastrian module time to pray');
+      if (user_access('access content')) {
+        // Use our custom function to retrieve data.
+        $block['content'] = t('No posts available.');  
+      }
+      return $block;
+    break;
+  }
+  
+}
+/**
+ * Implements hook_permission().
+ */
+function zmodule2_permission() {
+  return array(
+    'run zdate update' => array(
+      'title' => t('Run update zoroastrian date'),
+      'description' => t('Run update zoroastrian date'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function zmodule2_menu() {
+  $items = array();
+
+  $items['admin/config/content/zmodule2'] = array(
+    'title' => 'Zmodule2 module',
+    'description' => 'Configuration for zmodule2 module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('zmodule2_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/reports/zmodule2'] = array(
+    'title' => 'Update zoroastrian date',
+    'description' => 'Update zoroastrian date.',
+    'page callback' => 'security_review_page',
+    'access arguments' => array('access security review list'),
+    'file' => 'zmodule2update.pages.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/reports/zmodule2/run'] = array(
+    'title' => 'Update & view',
+  //  'access arguments' => array('access security review list'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  return $items;
+}
+/**
+ * Page callback: zmodule2 settings
+ *
+ * @see zmodule2_menu()
+ */
+function zmodule2_form($form, &$form_state) {
+  $form['zmodule2_max'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maximum number of posts'),
+    '#default_value' => variable_get('zmodule2_max', 3),
+    '#size' => 2,
+    '#maxlength' => 2,
+    '#description' => t('The maximum number of links to display in the block.'),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
+}
+
+
