@@ -1,4 +1,10 @@
 <?php
+function zmodule2pray () {
+    $st =  array();
+    $st[]="jbcvj<br>";
+    $st[]="second";
+return $st;
+
 /**
  * Implements hook_block_info().
  */
@@ -34,7 +40,7 @@ function zmodule2_block_view($delta = '') {
       $block['subject'] = t('Zoroastrian module time to pray');
       if (user_access('access content')) {
         // Use our custom function to retrieve data.
-        module_load_include('inc', 'zmodule2pray');
+//        module_load_include('inc', 'zmodule2pray');
 //        $block['content'] = t('No posts available.');  
         $block['content'] = zmodule2pray();  
       }
