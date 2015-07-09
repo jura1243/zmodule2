@@ -1,8 +1,11 @@
 <?php
 function zmodule2pray () {
-    $st =  array();
+/*    $st =  array();
     $st[]="jbcvj<br>";
     $st[]="second";
+  */
+    $st="lkhhv<br>";
+    $st=$st."second";
 return $st;
 }
 /**
