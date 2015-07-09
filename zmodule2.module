@@ -4,7 +4,7 @@ function zmodule2pray () {
     $st[]="jbcvj<br>";
     $st[]="second";
 return $st;
-
+}
 /**
  * Implements hook_block_info().
  */
