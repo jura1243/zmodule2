@@ -101,11 +101,18 @@ function zmodule2_form($form, &$form_state) {
     '#required' => TRUE,
   );
 */
-    $form['timezone'] = array(
+  $form['timezone'] = array(
     '#type' => 'textfield',
     '#title' => t('Временная зона'),
     '#default_value' => variable_get('timezone', 'Europe/Moscow'),
     '#description' => t('Место в котой будет считаться время.'),
+    '#required' => TRUE,
+  );
+  $form['timeoffset'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Разница времени от GMT'),
+    '#default_value' => variable_get('timeoffset', 3),
+    '#size' => 3,
     '#required' => TRUE,
   );
   $form['yeardelay'] = array(
