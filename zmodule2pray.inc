@@ -1,7 +1,6 @@
 <?php
 function zmodule2pray () {
-    $st =  [];
-    $st[]="jbcvj<br>";
-    $st[]="second";
+    $st="lkhhv<br>";
+    $st=$st."second";
 return $st;
 }
