@@ -23,7 +23,7 @@ function zmodule2_block_info() {
 function zmodule2_block_view($delta = '') {
   switch ($delta) {
     case 'zmodule2date':
-      $block['subject'] = t('Zoroastrian module current date');
+      $block['subject'] = t('Зороастрийская дата');
       if (user_access('access content')) {
         // Use our custom function to retrieve data.
         module_load_include('inc', 'zmodule2','zmodule2date');
@@ -32,7 +32,7 @@ function zmodule2_block_view($delta = '') {
       return $block;
     break;
     case 'zmodule2pray':
-      $block['subject'] = t('Zoroastrian module time to pray');
+      $block['subject'] = t('Время молитвы');
       if (user_access('access content')) {
         // Use our custom function to retrieve data.
         module_load_include('inc', 'zmodule2','zmodule2pray');
