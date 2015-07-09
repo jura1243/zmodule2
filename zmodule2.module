@@ -1,10 +1,4 @@
 <?php
-/*function zmodule2pray () {
-    $st="lkhhv<br>";
-    $st=$st."second";
-return $st;
-}
- */
 /**
  * Implements hook_block_info().
  */
@@ -32,7 +26,8 @@ function zmodule2_block_view($delta = '') {
       $block['subject'] = t('Zoroastrian module current date');
       if (user_access('access content')) {
         // Use our custom function to retrieve data.
-        $block['content'] = t('No posts available.');  
+        module_load_include('inc', 'zmodule2','zmodule2date');
+        $block['content'] = zmodule2date();  
       }
       return $block;
     break;
@@ -41,7 +36,6 @@ function zmodule2_block_view($delta = '') {
       if (user_access('access content')) {
         // Use our custom function to retrieve data.
         module_load_include('inc', 'zmodule2','zmodule2pray');
-//        $block['content'] = t('No posts available.');  
         $block['content'] = zmodule2pray();  
       }
       return $block;
