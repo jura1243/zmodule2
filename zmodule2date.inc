@@ -1,4 +1,5 @@
 <?php
+function zmodule2date(){
 global $language;
 
 $dayofmounthname_ru=array(
@@ -223,8 +224,8 @@ $msg_ru=array(
     "день", "месяц","год ЗРЭ","Подробнее","День начался с восходом солнца в Санкт-Петербурге в: ","Завтрашний день начнется в: ","Календарь в разработке"," Заратуштрийской Религиозной Эры","Дни Гат"
 );
 
-//echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-//echo "<noindex>";
+//$st=$st.'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+//$st=$st."<noindex>";
 $startyear=2009;    $startzreyear=3747;
 date_default_timezone_set('Europe/Moscow');
 
@@ -232,15 +233,15 @@ $tm_current=time();
 //$tm_current=mktime(date("G"), date("i"), date("s"), date("m")  , date("d"), date("Y"));
 //$tm_current=mktime(15, 0, date("s"), date("m")-3  , date("d")+3, date("Y"));	//31 decembre
 //$tm_current=mktime(date("G")+10, date("i"), date("s"), date("m")-1  , //date("d")+21, date("Y"));
-//echo strftime("day is: %T %d.%m.%Y<br>", $tm_current);
+//$st=$st.strftime("day is: %T %d.%m.%Y<br>", $tm_current);
 
 //last of february (28,29)
 $lastday = date("d",mktime(0, 0, 0, 4, -31, date("Y",$tm_current)) );
 //if($lastday==29) {}
-//echo $lastday;
+//$st=$st.$lastday;
 
 $offsetnumyear=date("Y",$tm_current)-$startyear;
-//echo $day."!".$month."!".$offsetnumyear."<br>";
+//$st=$st.$day."!".$month."!".$offsetnumyear."<br>";
 
 if($tm_current>mktime(0, 0, 0, 03, 21, date("Y",$tm_current)) ){
     $tm_noruz=mktime(0, 0, 0, 03, 21, date("Y",$tm_current));
@@ -252,22 +253,22 @@ if($tm_current>mktime(0, 0, 0, 03, 21, date("Y",$tm_current)) ){
 //,$tm_current
 $tm_today0 = mktime(0, 0, 0, date("m",$tm_current)  , date("d",$tm_current), date("Y",$tm_current)); //begin of the day
 //$st=date("d.m.Y H:i:s",$tm_today0);
-//echo "tm_today=".$st, "<br>time()=".date("d.m.Y H:i:s",time());
+//$st=$st."tm_today=".$st, "<br>time()=".date("d.m.Y H:i:s",time());
 
 $ptm_timediff=$tm_today0-$tm_noruz;
-//echo $tm_today0."!".$tm_noruz."!".$ptm_timediff."=";
+//$st=$st.$tm_today0."!".$tm_noruz."!".$ptm_timediff."=";
 
 $ptm_oneyear=mktime(0, 0, 0, date("m")  , date("d"), date("Y")+1)-mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 $year=intval($ptm_timediff/$ptm_oneyear)+$startzreyear;
 
 $ptm_oneday=mktime(0, 0, 0, date("m")  , date("d")+1, date("Y"))-mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 //86400;
-//echo $ptm_oneday."!";
+//$st=$st.$ptm_oneday."!";
 $ptm_onehour=mktime(1, 0, 0, date("m")  , date("d"), date("Y"))-mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 $ptm_oneminute=mktime(0, 1, 0, date("m")  , date("d"), date("Y"))-mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 
 $ptm_onemonth=$ptm_oneday*30;
-//echo $ptm_oneday."!".$ptm_onemonth."<br>";
+//$st=$st.$ptm_oneday."!".$ptm_onemonth."<br>";
 $month= intval($ptm_timediff/$ptm_onemonth);
 
 //summer time
@@ -318,7 +319,7 @@ if ($tm_current<$tm_sunrise){   //??
     }
 }else{  //>=
     if($day==30){
-//echo "hello";
+//$st=$st."hello";
         if($month<11){
             $month=$month+1;    $day=0;
         }
@@ -337,50 +338,53 @@ if($day<7){
 }
 
 //$language->language='ru';
+$st="";
 if( $language->language=='en') {
     if($month==12){ //last 5 days
-        echo $msg_en[8].",<br>";
-        echo strval($day+1)." ".$gathadays[$day]." Gatha ".$msg_en[0].".<br>";
-        echo strval($year)." ".$msg_en[2]."<br><br>";
+        $st=$st.$msg_en[8].",<br>";
+        $st=$st.strval($day+1)." ".$gathadays[$day]." Gatha ".$msg_en[0].".<br>";
+        $st=$st.strval($year)." ".$msg_en[2]."<br><br>";
     }else{
 
-        echo sprintf("%02s",$day+1)." ".$dayofmounthname[$day]." ".$msg_en[0].".<br>";
-        echo sprintf("%02s",$month+1)." ".$monthname[$month]." ".$msg_en[1].".<br>";
-        echo strval($year)." ".$msg_en[2]."<br><br>";
-//echo $weekdescr_en[$week]."<br \><br \>";
-        echo $dayofmounthname[$day]." ".$msg_en[0]." ".$dayofmounthdescr_en[$day].".<br><br>";
-//    echo " <a href=http://zoroastrian.ru/node/58>".$msg_en[3]."..</a><br \><br \>";
+        $st=$st.sprintf("%02s",$day+1)." ".$dayofmounthname[$day]." ".$msg_en[0].".<br>";
+        $st=$st.sprintf("%02s",$month+1)." ".$monthname[$month]." ".$msg_en[1].".<br>";
+        $st=$st.strval($year)." ".$msg_en[2]."<br><br>";
+//$st=$st.$weekdescr_en[$week]."<br \><br \>";
+        $st=$st.$dayofmounthname[$day]." ".$msg_en[0]." ".$dayofmounthdescr_en[$day].".<br><br>";
+//    $st=$st." <a href=http://zoroastrian.ru/node/58>".$msg_en[3]."..</a><br \><br \>";
 
     }//12
     if ($tm_current>$tm_sunrise){
-        echo $msg_en[4] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
-        echo $msg_en[5] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_en[4] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_en[5] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
     }else{
-        echo $msg_en[4] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
-        echo $msg_en[5] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_en[4] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_en[5] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
     }
 }else{  //ru
 
     if($month==12){ //last 5 days
-        echo $msg_ru[8].",<br>";
-        echo strval($day+1)." ".$gathadays_ru[$day]." Гата ".$msg_ru[0].".<br>";
-        echo strval($year)." ".$msg_ru[2]."<br><br>";
+        $st=$st.$msg_ru[8].",<br>";
+        $st=$st.strval($day+1)." ".$gathadays_ru[$day]." Гата ".$msg_ru[0].".<br>";
+        $st=$st.strval($year)." ".$msg_ru[2]."<br><br>";
     }else{
 
-        echo sprintf("%02s",$day+1)." ".$dayofmounthname_ru[$day]." ".$msg_ru[0].".<br>";
-        echo sprintf("%02s",$month+1)." ".$monthname_ru[$month]." ".$msg_ru[1].".<br>";
-        echo strval($year)." ".$msg_ru[2]."<br><br>";
-//echo $weekdescr_ru[$week]."<br \><br \>";
-        echo $dayofmounthname_ru[$day]." ".$msg_ru[0]." ".$dayofmounthdescr_ru[$day].".<br><br>";
-//    echo " <a href=http://zoroastrian.ru/node/58>".$msg_ru[3]."..</a><br \><br \>";
+        $st=$st.sprintf("%02s",$day+1)." ".$dayofmounthname_ru[$day]." ".$msg_ru[0].".<br>";
+        $st=$st.sprintf("%02s",$month+1)." ".$monthname_ru[$month]." ".$msg_ru[1].".<br>";
+        $st=$st.strval($year)." ".$msg_ru[2]."<br><br>";
+//$st=$st.$weekdescr_ru[$week]."<br \><br \>";
+        $st=$st.$dayofmounthname_ru[$day]." ".$msg_ru[0]." ".$dayofmounthdescr_ru[$day].".<br><br>";
+//    $st=$st." <a href=http://zoroastrian.ru/node/58>".$msg_ru[3]."..</a><br \><br \>";
 
     }//12
     if ($tm_current>$tm_sunrise){
-        echo $msg_ru[4] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
-        echo $msg_ru[5] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_ru[4] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_ru[5] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
     }else{
-        echo $msg_ru[4] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
-        echo $msg_ru[5] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_ru[4] .date_sunrise(mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")), SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
+        $st=$st.$msg_ru[5] .date_sunrise($tm_today0, SUNFUNCS_RET_STRING, $latitude, $longitude, $zenith, $gmt_offset)."<br>";
     }
 }//ru
-//echo "</noindex>";
+//$st=$st."</noindex>";
+return $st;
+}
