@@ -10,6 +10,8 @@ function zmodule2_install(){
   variable_set('longtitude', 30.15);
   variable_set('zenith', 90.583333);
   variable_set('timeoffset', 3);
+  variable_set('novruzday', 21);
+  variable_set('novruzmonth', 3);
 }
 
 /**

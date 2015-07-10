@@ -18,7 +18,7 @@ function zmodule2pray () {
     $timestring="12:00:00";
  * 
  */
-    $st="";
+    $st=""; $stpraynamecur=""; $stpraynamenext="";
     $dthavangah->setTimestamp(date_sunrise($dtcur->getTimestamp(), SUNFUNCS_RET_TIMESTAMP, variable_get('latitude'), variable_get('longtitude'), variable_get('zenith'), $gmtoffsettimezonebased));
     $dtrapitvingah->setTime(12,0,0);
     $dtuseringah->setTime(15,0,0);
@@ -31,34 +31,39 @@ function zmodule2pray () {
         $dtpray=$dthavangah;
         $dtprayend=new DateTime($dtcur->format('Y-m-d H:i:sP'), $tz);
         $dtprayend->setTime(0,0,0);
+        $stpraynamecur=t("Ушахин-гах");        $stpraynamenext=t("Хаван-гах");
     }
     elseif ($dtcur->getTimestamp()< $dtrapitvingah->getTimestamp() ) {
         $dtpray=$dtrapitvingah;            
         $dtprayend=new DateTime($dthavangah->format('Y-m-d H:i:sP'), $tz);
+        $stpraynamecur=t("Хаван-гах");        $stpraynamenext=t("Рапитвин-гах");
     }
     elseif ($dtcur->getTimestamp()< $dtuseringah->getTimestamp() ) {
         $dtpray=$dtuseringah;            
         $dtprayend=new DateTime($dtrapitvingah->format('Y-m-d H:i:sP'), $tz);
+        $stpraynamecur=t("Рапитвин-гах");        $stpraynamenext=t("Узерин-гах");
     }
     elseif ($dtcur->getTimestamp()< $dtaivisrutgah->getTimestamp() ) {
         $dtpray=$dtaivisrutgah;            
         $dtprayend=new DateTime($dtuseringah->format('Y-m-d H:i:sP'), $tz);
+        $stpraynamecur=t("Узерин-гах");        $stpraynamenext=t("Аивисрутрим-гах");
     }
     elseif ($dtcur->getTimestamp()< $dtushahingah->getTimestamp() ) {
         $dtpray=$dtushahingah;            
         $dtprayend=new DateTime($dtaivisrutgah->format('Y-m-d H:i:sP'), $tz);
+        $stpraynamecur=t("Аивисрутрим-гах");        $stpraynamenext=t("Ушахин-гах");
     }
     $dtprayend->add($interval);
 
     if ( ($dtcur->getTimestamp()<$dtprayend->getTimestamp()) ) {
-        $st=$st."Сейчас время молитвы!<br>";
-        $st2="Следующая молитва";
+        $st=$st."Сейчас время молитвы ".$stpraynamecur."!<br>";
+        $st2="Следующая молитва ";
     }else{
         $di=$dtcur->diff($dtpray);
         $st=$st."Времени осталось до молитвы  ".$di->h.":".$di->i." часов.<br>";
-        $st2="Молитва";
+        $st2="Молитва ";
     }
-    $st=$st.$st2." будет в ". $dtpray->format("H:i")." часов.<br>";
+    $st=$st.$st2.$stpraynamenext." будет в ". $dtpray->format("H:i")." часов.<br>";
         
 //    $st=$st.$gmtoffsettimezonebased;
 /*    $st=$st."cur".$dtcur->format('Y-m-d H:i:s')."<br>";
@@ -72,18 +77,5 @@ function zmodule2pray () {
  * 
  */
 
-
-/*
-    	<li>
-		Хаван-гах&nbsp;&mdash; от рассвета ( в <?php echo date_sunrise(time(), SUNFUNCS_RET_STRING, 59.56, 30.15, 90.583333, 4); ?>)* до полудня (12:00);</li>
-	<li>
-		Рапитвин-гах&nbsp;&mdash; от полудня ( в 12:00) до 3 часов по полудню (15:00);</li>
-	<li>
-		Узерин-гах&nbsp;&mdash; от 3 часов по полудню ( в 15:00) до заката(в <?php echo date_sunset(time(), SUNFUNCS_RET_STRING, 59.56, 30.15, 90.583333, 4); ?>)*;</li>
-	<li>
-		Аивисрутрим-гах&nbsp;&mdash; от заката (в <?php echo date_sunset(time(), SUNFUNCS_RET_STRING, 59.56, 30.15, 90.583333, 4); ?>)* до полуночи (24:00);</li>
-	<li>
-		Ушахин-гах.&nbsp;&mdash; от полуночи ( в 24:00) до рассвета ( в <?php echo date_sunrise(time(), SUNFUNCS_RET_STRING, 59.56, 30.15, 90.583333, 4); ?>)*;</li>
-*/
 return $st;
 }

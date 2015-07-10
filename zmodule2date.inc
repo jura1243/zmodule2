@@ -1,4 +1,34 @@
 <?php
+function zmodule2date_new(){
+    global $language;
+    $st="";
+    $zday=0; $zmonth=0; $zyear=0;
+
+    $tz = new DateTimeZone(variable_get('timezone'));
+
+//    $dttest=new DateTime("2015-07-10 0:07:00",$tz);
+//    $dtcur=$dttest;
+    $dtcur=new DateTime("now", $tz);        
+    $dtnovruz=new DateTime("now", $tz);
+    $gmtoffsettimezonebased=$tz->getOffset($dtcur)/60/60;
+
+    $dizmonth=new DateInterval('P30D');
+    $dizyear=new DateInterval('P360D');
+
+    date_date_set ( $dtnovruz , $dtcur->format("Y") , variable_get('novruzmonth') , variable_get('novruzday') );
+    
+    if (true) {
+        
+    }
+    
+    $st=$st.$dtcur->format('Y-m-d H:i:s')."<br>";
+    $st=$st.$dtnovruz->format('Y-m-d H:i:s')."<br>";
+    
+    return $st;
+}
+
+
+
 function zmodule2date(){
 global $language;
 
@@ -206,14 +236,6 @@ $gathadays=array(
  "Авардадсалгах"
 ];
 
-$watchesoftheday_en=array(
-//Watches (gahs) of the day:
-"Hawan (sunrise to noon)",
-"Rapithwin or Second Hawan (noon to 3 p.m.)",
-"Uzerin (3 p.m. to sunset)",
-"Aiwisruthrem (sunset to midnight)",
-"Ushahin (midnight to sunrise)"
-);
 
 $msg_en=array(
 //   0     1       2         3          4						5               6                                   7                              8
