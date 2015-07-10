@@ -1,0 +1,20 @@
+<?php
+/**
+ * Implements hook_install()
+ */
+function zmodule2_install(){
+  variable_set('timezone', 'Europe/Moscow');
+  variable_set('yeardelay', 1111);
+  variable_set('cityname', "Санкт-Петербург");
+  variable_set('latitude', 59.56);
+  variable_set('longtitude', 30.15);
+  variable_set('zenith', 90.583333);
+  variable_set('timeoffset', 3);
+}
+
+/**
+ * Implements hook_uninstall()
+ */
+function zmodule2_uninstall(){
+  //Nothing to do except be more convenient!
+}
